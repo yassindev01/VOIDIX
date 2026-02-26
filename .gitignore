@@ -9,3 +9,38 @@ temp_session_*/
 login_*/
 .DS_Store
 composer.lock
+# Node modules
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# Environment variables
+.env
+.env.local
+.env.production
+
+# System files
+.DS_Store
+Thumbs.db
+
+# Logs
+logs/
+*.log
+
+# Build output
+dist/
+build/
+out/
+
+# IDE files
+.vscode/
+.idea/
+
+# Temporary files
+*.swp
+*.swo
+
+# Sensitive backend data
+sessions/
+token.json
+private/
