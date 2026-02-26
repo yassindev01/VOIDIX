@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VOIDIX - Protocol Alpha</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Rajdhani:wght@300;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-neon: #00f3ff;
+            --secondary-neon: #bc13fe;
+            --danger-neon: #ff0055;
+            --success-neon: #00ff9d;
+            --void-bg: #050505;
+            --glass-bg: rgba(15, 15, 25, 0.85);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --text-main: #ffffff;
+            --text-dim: #a0a0c0;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Rajdhani', sans-serif;
+            background-color: var(--void-bg);
+            color: var(--text-main);
+            min-height: 100vh;
+            overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+            background: radial-gradient(circle at 50% 50%, #1a1a2e 0%, #050505 100%);
+        }
+
+        /* Animated Background Particles Effect */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-image: 
+                radial-gradient(white, rgba(255,255,255,.2) 2px, transparent 40px),
+                radial-gradient(white, rgba(255,255,255,.15) 1px, transparent 30px);
+            background-size: 550px 550px, 350px 350px;
+            background-position: 0 0, 40px 60px;
+            animation: stars 60s linear infinite;
+            opacity: 0.1;
+            z-index: -1;
+        }
+
+        @keyframes stars {
+            from { background-position: 0 0, 40px 60px; }
+            to { background-position: 550px 550px, 390px 410px; }
+        }
+
+        header {
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            border-bottom: 2px solid var(--primary-neon);
+            padding: 1rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 0 20px rgba(0, 243, 255, 0.2);
+        }
+
+        header h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2rem;
+            background: linear-gradient(90deg, var(--primary-neon), var(--secondary-neon));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 10px rgba(0, 243, 255, 0.5);
+        }
+
+        nav button {
+            background: transparent;
+            color: var(--text-main);
+            border: 1px solid var(--primary-neon);
+            padding: 0.6rem 1.2rem;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.8rem;
+            cursor: pointer;
+            margin-left: 10px;
+            border-radius: 4px;
+            transition: 0.3s;
+        }
+
+        nav button:hover {
+            background: var(--primary-neon);
+            color: #000;
+            box-shadow: 0 0 20px var(--primary-neon);
+        }
+
+        main {
+            flex: 1;
+            max-width: 800px;
+            width: 90%;
+            margin: 40px auto;
+        }
+
+        section {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 10px 50px rgba(0,0,0,0.8);
+            display: none;
+            animation: fadeIn 0.8s ease;
+        }
+
+        section.active { display: block; }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        h2 {
+            font-family: 'Orbitron', sans-serif;
+            margin-bottom: 30px;
+            color: var(--primary-neon);
+            text-align: center;
+            text-transform: uppercase;
+        }
+
+        label { display: block; margin-bottom: 8px; color: var(--text-dim); font-weight: 500; }
+
+        input {
+            width: 100%;
+            padding: 15px;
+            margin-bottom: 20px;
+            background: rgba(0,0,0,0.5);
+            border: 1px solid var(--glass-border);
+            border-radius: 10px;
+            color: #fff;
+            font-size: 1.1rem;
+            transition: 0.3s;
+        }
+
+        input:focus {
+            border-color: var(--primary-neon);
+            box-shadow: 0 0 15px rgba(0, 243, 255, 0.3);
+            outline: none;
+        }
+
+        button[type="submit"], #startCleanBtn {
+            width: 100%;
+            padding: 18px;
+            background: linear-gradient(45deg, var(--secondary-neon), var(--primary-neon));
+            border: none;
+            border-radius: 10px;
+            color: #000;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: bold;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: 0.4s;
+            text-transform: uppercase;
+        }
+
+        button:hover { transform: scale(1.02); filter: brightness(1.2); }
+
+        /* Dashboard & Cards */
+        #accountCard, #statsCards {
+            margin-bottom: 25px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 15px;
+        }
+
+        .stat-card {
+            background: rgba(255,255,255,0.05);
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+            border: 1px solid var(--glass-border);
+        }
+
+        .stat-card span {
+            display: block;
+            font-size: 2rem;
+            font-family: 'Orbitron', sans-serif;
+            color: var(--primary-neon);
+        }
+
+        /* Clean Terminal */
+        #cleanProgress {
+            background: #000;
+            border: 1px solid var(--danger-neon);
+            padding: 20px;
+            border-radius: 10px;
+            font-family: monospace;
+            margin-top: 30px;
+        }
+
+        #cleanLog { list-style: none; color: var(--success-neon); height: 200px; overflow-y: auto; }
+        
+        #cleanLog li::before { content: "> "; }
+
+        footer { text-align: center; padding: 20px; opacity: 0.5; font-size: 0.8rem; }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>VOIDIX</h1>
+        <nav>
+            <button id="loginBtn">ACCESS</button>
+            <button id="dashboardBtn" style="display:none;">DASHBOARD</button>
+            <button id="cleanBtn" style="display:none;">VOID_CLEAN</button>
+            <button id="logoutBtn" style="display:none;">TERMINATE</button>
+        </nav>
+    </header>
+
+    <main id="app">
+        <!-- Auth Section -->
+        <section id="authSection" class="active">
+            <h2>PROTOCOL LOGIN</h2>
+            <form id="loginForm">
+                <label>PHONE_NUMBER</label>
+                <input type="text" id="phoneNumber" placeholder="+1234567890" required>
+                
+                <label>TELEGRAM_API_ID</label>
+                <input type="text" id="apiId" placeholder="1234567" required>
+                
+                <label>TELEGRAM_API_HASH</label>
+                <input type="text" id="apiHash" placeholder="hash_string" required>
+
+                <button type="submit">INITIALIZE LOGIN</button>
+            </form>
+            
+            <form id="verifyForm" style="display:none;">
+                <label>VERIFICATION_CODE</label>
+                <input type="text" id="loginCode" placeholder="12345" required>
+                <button type="submit">AUTHORIZE</button>
+            </form>
+            <p id="authMessage" style="text-align:center; margin-top:20px; color: var(--primary-neon);"></p>
+        </section>
+
+        <!-- Dashboard Section -->
+        <section id="dashboardSection">
+            <h2>ACCOUNT_ANALYTICS</h2>
+            <div id="accountCard" style="display:block; text-align:center; margin-bottom:30px;">
+                <!-- Filled via JS -->
+            </div>
+            <div id="statsCards">
+                <!-- Filled via JS -->
+            </div>
+            <div id="dialogsList">
+                <!-- Filled via JS -->
+            </div>
+        </section>
+
+        <!-- Clean Section -->
+        <section id="cleanSection">
+            <h2 style="color: var(--danger-neon);">VOID_CLEAN_ENGINE</h2>
+            <p style="text-align:center; margin-bottom:20px; color: var(--text-dim);">DANGER: This protocol will visually reset your account.</p>
+            <label style="justify-content:center; display:flex; align-items:center;">
+                <input type="checkbox" id="confirmCleanMode" style="width:20px; height:20px; margin-right:10px;"> I ACCEPT THE RISK
+            </label>
+            <button id="startCleanBtn" disabled style="background: var(--danger-neon);">EXECUTE CLEAN_MODE</button>
+            
+            <div id="cleanProgress" style="display:none;">
+                <ul id="cleanLog"></ul>
+                <button id="stopCleanBtn" style="background:#444; margin-top:10px;">STOP_EXECUTION</button>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        &copy; 2026 VOIDIX // SECURED PROTOCOL
+    </footer>
+
+    <script src="assets/js/app.js?v=3.0"></script>
+</body>
+</html>

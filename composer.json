@@ -1,0 +1,26 @@
+{
+    "name": "voidix/app",
+    "description": "VOIDIX Telegram Management System",
+    "type": "project",
+    "require": {
+        "php": ">=8.1",
+        "danog/madelineproto": "^8.0",
+        "firebase/php-jwt": "^6.0"
+    },
+    "config": {
+        "allow-plugins": {
+            "php-http/discovery": true
+        },
+        "audit": {
+            "options": {
+                "block-insecure": false
+            },
+            "ignore": ["PKSA-y2cr-5h3j-g3ys"]
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "src/"
+        }
+    }
+}

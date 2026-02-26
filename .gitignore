@@ -1,0 +1,11 @@
+.env
+vendor/
+node_modules/
+*.madeline
+*.madeline.safe
+*.madeline.lock
+voidix_sessions/
+temp_session_*/
+login_*/
+.DS_Store
+composer.lock
